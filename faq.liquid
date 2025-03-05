@@ -1,0 +1,79 @@
+<div class="faq-page">
+    <div class="faq-page-width">
+        <div class="faq-page-header">
+            <h1>{{ page.title }}</h1>
+            <div class="faq-page-header-content">
+                {{ page.content }}
+            </div>
+        </div>
+        <div class="faq-page-body">
+            {% for block in section.blocks %}
+                {% if block.type == 'category' %}
+                    <h1 class="faq-page-category">
+                        {{ block.settings.title }} 
+                    </h1>
+                {% endif %}  
+
+                {% if block.type == 'question' %}
+                <div class="faq-page-question">
+                    <header class="faq-page-question-header">
+                        <h3>{{ block.settings.title }}</h3>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16"   fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                      </svg>                   </header>
+                    <div class="faq-page-question-body">
+                        {{ block.settings.body }}
+                    </div>
+                </div>
+                {% endif %}  
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "FAQ",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "category",
+            "name": "Category",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Category title"
+                }
+            ]
+        },
+        {
+            "type": "question",
+            "name": "Question",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Question title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "body",
+                    "label": "Question body"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "FAQ",
+            "category": "Page",
+            "blocks": [
+                { "type": "category" },
+                { "type": "question" }
+            ]
+        }
+    ]
+}
+{% endschema %}
